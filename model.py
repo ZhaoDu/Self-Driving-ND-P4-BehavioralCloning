@@ -123,7 +123,7 @@ def generator(samples, batch_size = 256):
 # Creates NVIDIA Autonomous Car Group model
 from keras.models import Sequential
 from keras.models import Model
-from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D
+from keras.layers import Flatten, Dense, Lambda, Activation, Cropping2D, Dropout
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 def model(): 
@@ -134,11 +134,11 @@ def model():
     model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3))) # Normalizing the data
     model.add(Cropping2D(cropping=((50,20), (0,0)))) # Cropping the image
     model.add(Convolution2D(24,5,5, activation='relu'))
-    model.add(pooling.MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Convolution2D(36,5,5, activation='relu'))
-    model.add(pooling.MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Convolution2D(48,5,5, activation='relu'))
-    model.add(pooling.MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Convolution2D(64,3,3, activation='relu'))
     model.add(Convolution2D(64,3,3, activation='relu'))
     model.add(Dropout(0.5))
