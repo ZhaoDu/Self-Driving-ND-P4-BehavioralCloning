@@ -54,7 +54,8 @@ For training, I used the following augumentation technique along with Python gen
 
 Here some examples of the augmented images:
 
-![augumented image][image4] ![augumented image][image7] 
+|![augumented image][image4]| ![augumented image][image7] |![augumented image][image8]|
+|:-------------:|:-----------------:|:--------------:|
 
 ### Data preprocess
 After the collection and augumentation process, I had 35916 data points. I then randomly shuffled the data set and put 20% of the data into a validation set.  The validation set helped determine if the model was over or under fitting. 
@@ -108,12 +109,12 @@ A model summary is as follows:
 |lambda_1           |Lambda         |(None, 160, 320, 3)   |0           |lambda_input_1[0][0]       |
 |cropping2d_1       |Cropping2D     |(None, 90, 320, 3)    |0           |lambda_1[0][0]             |
 |convolution2d_1    |Convolution2D  |(None, 85, 315, 24)   |1824        |cropping2d_1[0][0]         |
-|maxpooling2d_1     |MaxPooling2D   |(None, 43, 158, 24)   |0           |cropping2d_1[0][0]         |
-|convolution2d_2    |Convolution2D  |(None, 39, 154, 36)   |21636       |convolution2d_1[0][0]      |
-|maxpooling2d_2     |MaxPooling2D   |(None, 20, 77, 36)    |0           |cropping2d_1[0][0]         |
-|convolution2d_3    |Convolution2D  |(None, 16, 73, 48)    |43248       |convolution2d_2[0][0]      |
-|maxpooling2d_3     |MaxPooling2D   |(None, 8, 37, 48)     |0           |cropping2d_1[0][0]         |
-|convolution2d_4    |Convolution2D  |(None, 6, 35, 64)     |27712       |convolution2d_3[0][0]      |
+|maxpooling2d_1     |MaxPooling2D   |(None, 43, 158, 24)   |0           |convolution2d_1[0][0]      |
+|convolution2d_2    |Convolution2D  |(None, 39, 154, 36)   |21636       |maxpooling2d_1[0][0]       |
+|maxpooling2d_2     |MaxPooling2D   |(None, 20, 77, 36)    |0           |convolution2d_2[0][0]      |
+|convolution2d_3    |Convolution2D  |(None, 16, 73, 48)    |43248       |maxpooling2d_2[0][0]       |
+|maxpooling2d_3     |MaxPooling2D   |(None, 8, 37, 48)     |0           |convolution2d_3[0][0]      |
+|convolution2d_4    |Convolution2D  |(None, 6, 35, 64)     |27712       |maxpooling2d_3[0][0]       |
 |convolution2d_5    |Convolution2D  |(None, 4, 33, 64)     |36928       |convolution2d_4[0][0]      |
 |dropout_1          |Dropout        |(None, 4, 33, 64)     |0           |convolution2d_5[0][0]      |
 |flatten_1          |Flatten        |(None, 8448)          |0           |dropout_1[0][0]            |
@@ -160,3 +161,4 @@ As can be seen from the full videos, the car remains onthe center of the road on
 [image5]: ./img/model.png "model archatecture"
 [image6]: ./img/run1.gif "run"
 [image7]: ./img/augumented02.jpg "augumented image"
+[image8]: ./img/augumented03.jpg "augumented image"
