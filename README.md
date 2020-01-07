@@ -3,7 +3,7 @@
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 ## Overview
----
+
 In this project, an end-to-end learning for self driving car with Udacity's self-driving car simulator was build based on the convolution neural network(CNN) introduced by [NVIDIA](https://devblogs.nvidia.com/deep-learning-self-driving-cars/). The goal of this project is to train network to calculate the steering angle required for lane keeping from front camera image. 
 
 |[LAKE TRACK](https://www.youtube.com/watch?v=Ac-268T252s&feature=youtu.be)           |
@@ -34,7 +34,7 @@ This solution requires:
 * Simulator: [Udacity Self-Driving Car Simulator](https://github.com/udacity/self-driving-car-sim)
 
 ## Data Preparation
----
+
 ### Data collection
 To capture good driving behavior, I first recorded three laps on track one using center lane driving. Here are the example images of track one from center, left, and right cameras:
 
@@ -54,13 +54,13 @@ For training, I used the following augumentation technique along with Python gen
 
 Here some examples of the augmented images:
 
-![augumented image][image4]
+![augumented image][image4] ![augumented image][image7] 
 
 ### Data preprocess
-After the collection and augumentation process, I had 28732 data points. I then randomly shuffled the data set and put 20% of the data into a validation set.  The validation set helped determine if the model was over or under fitting. 
+After the collection and augumentation process, I had 35916 data points. I then randomly shuffled the data set and put 20% of the data into a validation set.  The validation set helped determine if the model was over or under fitting. 
 
-### Model
----
+## Model
+
 ### Solution Design Approach
 
 As the NVIDIA model is well documented, I was able to focus how to adjust the training images to produce the best result with some adjustments to the model to avoid overfitting and adding non-linearity to improve the prediction. I've added the following adjustments to the model.
@@ -92,6 +92,7 @@ I splitted the images into train and validation set in order to measure the perf
 
 ### Model Adjustment
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model based on  [NVIDIA](https://devblogs.nvidia.com/deep-learning-self-driving-cars/) had a low mean squared error on the training set but a high mean squared error on the validation set.This implied that the model was overfitting. I tested this original model, the vehicle is able to drive autonomously around the track without leaving the road. 
+
 |DATE             |BATCH SIZE    |EPOCHS        |LOSS(LAST EPOCH)     |VALIDATION LOSS(LAST EPOCH)    |TIME     |
 |-----------------|-------------:|-------------:|--------------------:|-----------------:|--------------|
 |2020-1-4         |32            |3             |8.7523e-04           |0.0264            |8645s         |
@@ -122,7 +123,7 @@ A model summary is as follows:
 |dense_4            |Dense          |(None, 1)             |11          |dense_3[0][0]              |
 
 ## Results
----
+
 ### Run the pretrained model
 Once the model has been saved, start up the Udacity self-driving simulator, choose a scene and press the Autonomous Mode button. Then, run the model with `drive.py` as follows:
 
@@ -136,15 +137,15 @@ The model can drive the course without bumping into the side ways(click the link
 * [The Lake Track](https://www.youtube.com/watch?v=Ac-268T252s&feature=youtu.be)
 
 ## Discussion
----
-As can be seen from the full videos, the car remains onthe center of the road on Track One for most of the path, but waits a little too long to turnnear the dirt track (but still manages to nonetheless).  The issue that was seen with Track Two (jungle track) was that there were sections of the track where the car was effectively ’blind’ and couldn’t see the next section of the road- this was the case during either sharpcurves  or  steep  inclines  followed  by  sharp  curves.   In  this  case,  it  stands  to  reason  thatcropping of the raw image (before input into the Neural Network) needs to be a bit moreconservative or non-existent.
 
-The performance of this pipeline could be better improved by:
+As can be seen from the full videos, the car remains onthe center of the road on Track One for most of the path, but waits a little too long to turnnear the dirt track (but still manages to nonetheless).  However, current model works poorly in Track Two(jungle track). The performance of this pipeline could be better improved by:
+
+* collecting more data from Track Two(jungle track) to boost the model. 
 * using pre-trained weightsfrom a different architecture (transfer learning) which is then fit to our application 
 * using either a driving wheel or a joystick to better manipulate the car during manual modeand generate smoother steering and hence better steering angles.
 
 ## Reference
----
+
 * [1] NVIDIA model: https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 * [2] Udacity Self-Driving Car Simulator: https://github.com/udacity/self-driving-car-sim
 * [3] Bojarski, Mariusz, et al. "End to end learning for self-driving cars." arXiv preprint arXiv:1604.07316 (2016).
@@ -158,6 +159,4 @@ The performance of this pipeline could be better improved by:
 [image4]: ./img/augumented01.jpg "augumented image"
 [image5]: ./img/model.png "model archatecture"
 [image6]: ./img/run1.gif "run"
-
-
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image7]: ./img/augumented02.jpg "augumented image"
